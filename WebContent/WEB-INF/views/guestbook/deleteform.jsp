@@ -12,14 +12,14 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook" class="delete-form">
-				<form method="post" action="/guestbook">
+				<form method="post" action="/mysite2/guestbook?a=delete">
 					<input type="hidden" name="a" value="delete">
-					<input type='hidden' name="no" value="">
-					<label>비밀번호</label>
+					<input type='hidden' name="no" value="<%= no %>">
+					<label>Password</label>
 					<input type="password" name="password">
-					<input type="submit" value="확인">
+					<input type="submit" value="Confirm">
 				</form>
-				<a href="">방명록 리스트</a>
+				<a href="<%=request.getContextPath()%>/guestbook?a=list">Go Back to Guestbook List</a>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"/>

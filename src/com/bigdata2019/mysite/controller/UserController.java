@@ -43,7 +43,28 @@ public class UserController extends HttpServlet {
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinsuccess.jsp");
 		} else if (action.equals("loginform")) {
 			WebUtil.forward(request, response, "WEB-INF/views/user/loginform.jsp");
+		} else if (action.equals("updateform")) {
+			// redirect to main if session is null
+			HttpSession session = request.getSession();
+			if (session == null) {
+				WebUtil.redirect(request, response, request.getContextPath());
+				return;
+			}
+			
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			if(authUser==null) {
+				WebUtil.redirect(request, response, request.getContextPath());
+				return;
+			}
+			
+			Long no = authUser.getNo();
+			UserVo vo = new UserDao().find(no);
+			
+			request.setAttribute("userVo", vo);
+			WebUtil.forward(request, response, "WEB-INF/views/user/updateform.jsp");
+			
 		} else if (action.equals("login")) {
+
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			UserVo vo = new UserDao().find(email, password);
@@ -60,18 +81,19 @@ public class UserController extends HttpServlet {
 			// redirect to Main page
 			WebUtil.redirect(request, response, request.getContextPath());
 		} else if (action.equals("logout")) {
+			// redirect to main if session is null
 			HttpSession session = request.getSession();
 			if (session == null) {
 				WebUtil.redirect(request, response, request.getContextPath());
 				return;
 			}
-			
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
-			if(authUser==null) {
+
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
+			if (authUser == null) {
 				WebUtil.redirect(request, response, request.getContextPath());
 				return;
 			}
-			
+
 			// sign out
 			session.removeAttribute("authUser");
 			session.invalidate();
