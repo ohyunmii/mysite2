@@ -20,7 +20,7 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook">
-				<form action="/mysite2/guestbook?a=add" method="post">
+				<form action="<%=request.getContextPath() %>/guestbook?a=add" method="post">
 					<input type="hidden" name="a" value="add">
 					<table border=1 width=500>
 						<tr>
@@ -42,18 +42,20 @@
 
 
 				<%
+					int totalCount = list.size();
+					int index = 0;
 					if (list != null) {
 						for (GuestbookVo vo : list) {
 				%>
 
 						<table width=510 border=1>
 							<tr>
-								<td>[<%=vo.getNo()%>]
+								<td>[<%=totalCount - index++%>]
 								</td>
 								<td><%=vo.getName()%></td>
 								<td><%=vo.getRegDate()%></td>
 								<td><a
-									href="<%=request.getContextPath() %>/guestbook?a=delete&no=<%=vo.getNo() %>">Delete</a></td>
+									href="<%=request.getContextPath() %>/guestbook?a=deleteform&no=<%=vo.getNo()%>">Delete</a></td>
 							</tr>
 							<tr>
 								<td colspan=4><%=vo.getContents().replace("\n", "<br>")%>

@@ -22,7 +22,9 @@ public class UserController extends HttpServlet {
 		String action = request.getParameter("a");
 
 		if (action.equals("joinform")) {
+			
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinform.jsp");
+			
 		} else if (action.equals("join")) {
 
 			String name = request.getParameter("name");
@@ -40,10 +42,15 @@ public class UserController extends HttpServlet {
 			WebUtil.redirect(request, response, request.getContextPath() + "/user?a=joinsuccess");
 
 		} else if (action.equals("joinsuccess")) {
+			
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinsuccess.jsp");
+			
 		} else if (action.equals("loginform")) {
+			
 			WebUtil.forward(request, response, "WEB-INF/views/user/loginform.jsp");
+		
 		} else if (action.equals("updateform")) {
+		
 			// redirect to main if session is null
 			HttpSession session = request.getSession();
 			if (session == null) {
@@ -80,7 +87,9 @@ public class UserController extends HttpServlet {
 
 			// redirect to Main page
 			WebUtil.redirect(request, response, request.getContextPath());
+	
 		} else if (action.equals("logout")) {
+			
 			// redirect to main if session is null
 			HttpSession session = request.getSession();
 			if (session == null) {
@@ -98,7 +107,9 @@ public class UserController extends HttpServlet {
 			session.removeAttribute("authUser");
 			session.invalidate();
 			WebUtil.redirect(request, response, request.getContextPath());
+		
 		} else {
+		
 			WebUtil.redirect(request, response, request.getContextPath());
 
 		}

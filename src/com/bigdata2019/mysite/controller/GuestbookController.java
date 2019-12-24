@@ -1,6 +1,9 @@
 package com.bigdata2019.mysite.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,13 +25,20 @@ public class GuestbookController extends HttpServlet {
 		String action = request.getParameter("a");
 
 		if ("list".equals(action)) {
+			
 			GuestbookDao dao = new GuestbookDao();
 			List<GuestbookVo> list = dao.findAll();
 			
 			request.setAttribute("list", list);
 			
 			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/list.jsp");
+			
+		} else if("deleteform".equals(action)) {
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteform.jsp");
+			
 		} else if("add".equals(action)) {
+			
 			request.setCharacterEncoding("UTF-8");
 			String name = request.getParameter("name");
 			String pwd = request.getParameter("password");
@@ -43,20 +53,18 @@ public class GuestbookController extends HttpServlet {
 			dao.insert(vo);
 			
 			WebUtil.redirect(request, response, request.getContextPath()+"/guestbook?a=list");
-		} else if("delete".equals(action)) {
+			
+			
+		}  else if("delete".equals(action)) {
+			
 			request.setCharacterEncoding("UTF-8");
 			
 			Long no = Long.parseLong(request.getParameter("no"));
-			String inputPwd = request.getParameter("password");
+			String password = request.getParameter("password");
 			
-			GuestbookDao vo = new GuestbookDao();
-			String dbPwd = vo.getPassword(no);
+			new GuestbookDao().delete(no, password);
 			
-			if(dbPwd.equals(inputPwd)) {
-				vo.delete(no,inputPwd);
-			}
-			
-			response.sendRedirect("/WEB-INF/views/guestbook/list.jsp");
+			WebUtil.redirect(request, response, request.getContextPath()+"/guestbook?a=list");	
 			
 		} else {
 //			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/list.jsp");

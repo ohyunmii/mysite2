@@ -17,8 +17,8 @@
 			<div id="user">
 
 				<form id="join-form" name="joinForm" method="post"
-					action="/mysite2/user?a=join">
-					<input type="hidden" name="a" value="join/" /> 
+					action="<%=request.getContextPath()%>/user?a=join">
+					<input type="hidden" name="a" value="join" /> 
 					
 					<label class="block-label" for="name">Name</label> 
 					<input id="name" name="name" type="text" value=""> 
