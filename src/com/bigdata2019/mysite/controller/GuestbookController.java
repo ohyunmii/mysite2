@@ -62,9 +62,11 @@ public class GuestbookController extends HttpServlet {
 			Long no = Long.parseLong(request.getParameter("no"));
 			String password = request.getParameter("password");
 			
-			new GuestbookDao().delete(no, password);
-			
-			WebUtil.redirect(request, response, request.getContextPath()+"/guestbook?a=list");	
+			boolean result = new GuestbookDao().delete(no, password);
+
+			if(!result) {
+				WebUtil.redirect(request, response, request.getContextPath() + "/guestbook?a=deleteform&result=fail");
+			}
 			
 		} else {
 //			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/list.jsp");

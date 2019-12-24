@@ -3,6 +3,7 @@
 
 <%
 	String no = request.getParameter("no");
+	String result = request.getParameter("result");
 %>
 
 <html>
@@ -25,6 +26,16 @@
 						type="password" name="password"> <input type="submit"
 						value="Confirm">
 				</form>
+
+				<%
+					if ("fail".equals(result)) {
+				%>
+				<br>
+				<p>Wrong password.</p>
+				<%
+					}
+				%>
+				
 				<br> <br> <br> <a
 					href="<%=request.getContextPath()%>/guestbook?a=list">Go Back
 					to Guestbook List</a> <br> <br>
