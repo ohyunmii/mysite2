@@ -6,6 +6,6 @@
 	<ul>
 		<li><a href="<%=request.getContextPath()%>">Home</a></li>
 		<li><a href="<%=request.getContextPath()%>/guestbook?a=list">Guestbook</a></li>
-		<li><a href="<%=request.getContextPath()%>/board">Board</a></li>
+		<li><a href="<%=request.getContextPath()%>/board?a=list">Board</a></li>
 	</ul>
 </div>

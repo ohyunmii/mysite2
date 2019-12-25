@@ -2,11 +2,15 @@
 	pageEncoding="UTF-8"%>
 	
 	
+<% 
+ 
+%>
+	
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -15,10 +19,10 @@
 			<div id="board" class="board-form">
 				<table class="tbl-ex">
 					<tr>
-						<th colspan="2">글보기</th>
+						<th colspan="2">View Posts</th>
 					</tr>
 					<tr>
-						<td class="label">제목</td>
+						<td class="label">Title</td>
 						<td>제목입니다.</td>
 					</tr>
 					<tr>
@@ -34,7 +38,7 @@
 				</table>
 				<div class="bottom">
 					<a href="">글목록</a>
-					<a href="">글수정</a>
+					<a href="<%=request.getContextPath()%>/board?a=modify">Modify</a>
 				</div>
 			</div>
 		</div>

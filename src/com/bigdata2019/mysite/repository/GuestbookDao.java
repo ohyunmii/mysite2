@@ -50,7 +50,6 @@ public class GuestbookDao {
 			}
 			return result;
 		}
-
 	}
 
 	public Boolean delete(Long no, String password) {
@@ -89,48 +88,6 @@ public class GuestbookDao {
 		}
 		return result;
 	}
-	
-	public String getPassword(Long no) {
-		GuestbookVo result = null;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			String sql = " select password from guestbook where no = ?";
-
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, no);
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				result = new GuestbookVo();
-				result.setPassword(rs.getString(1));
-			}
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Failed to load Driver: " + e);
-		} catch (SQLException e) {
-			System.out.println("Error: " + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result.getPassword();
-	}
-	
-	
-
 	
 	public List<GuestbookVo> findAll() {
 		List<GuestbookVo> result = new ArrayList<GuestbookVo>();
