@@ -148,7 +148,8 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "select no, title, contents, date_format(reg_date, '%Y-%c-%d %h:%i:%s'), hit from board order by no desc";
+			//select b.no, name, title, contents, date_format(b.reg_date, '%Y-%c-%d %h:%i:%s'), hit from board b, user u where b.user_no=u.no order by no desc;
+			String sql = "select b.no, name, title, contents, date_format(b.reg_date, '%Y-%c-%d %h:%i:%s'), hit from board b, user u where b.user_no=u.no order by no desc";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -157,10 +158,11 @@ public class BoardDao {
 			while (rs.next()) {
 				BoardVo vo = new BoardVo();
 				vo.setNo(rs.getLong(1));
-				vo.setTitle(rs.getString(2));
-				vo.setContents(rs.getString(3));
-				vo.setRegDate(rs.getString(4));
-				vo.setHit(rs.getInt(5));
+				vo.setUserName(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContents(rs.getString(4));
+				vo.setRegDate(rs.getString(5));
+				vo.setHit(rs.getInt(6));
 
 				result.add(vo);
 			}
