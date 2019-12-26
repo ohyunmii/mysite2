@@ -102,8 +102,9 @@ public class BoardDao {
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
-
-			String sql = "select no, title, contents, reg_date, hit from board where title like '%" + keyword + "%'";
+			
+			//search with keywords: by author or title
+			String sql = "select b.no, name, title, contents, reg_date, hit from board b, user u where b.user_no=u.no and title like '%" + keyword + "%' or name like '%" + keyword + "%'";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -112,10 +113,11 @@ public class BoardDao {
 			while (rs.next()) {
 				BoardVo vo = new BoardVo();
 				vo.setNo(rs.getLong(1));
-				vo.setTitle(rs.getString(2));
-				vo.setContents(rs.getString(3));
-				vo.setRegDate(rs.getString(4));
-				vo.setHit(rs.getInt(5));
+				vo.setUserName(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContents(rs.getString(4));
+				vo.setRegDate(rs.getString(5));
+				vo.setHit(rs.getInt(6));
 
 				result.add(vo);
 			}
