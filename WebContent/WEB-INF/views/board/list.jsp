@@ -1,5 +1,4 @@
 <%@page import="com.bigdata2019.mysite.vo.UserVo"%>
-<%@page import="com.bigdata2019.mysite.repository.UserDao"%>
 <%@page import="com.bigdata2019.mysite.vo.BoardVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
