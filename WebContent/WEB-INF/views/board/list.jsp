@@ -9,7 +9,6 @@
 <%
 	UserVo authUser = (UserVo) session.getAttribute("authUser");
 	List<BoardVo> list = (List<BoardVo>) request.getAttribute("list");
-	//new UserDao().find(vo.getUserNo()).getName()
 %>
 
 
@@ -51,9 +50,20 @@
 						<td><%=vo.getUserName()%></td>
 						<td><%=vo.getHit()%></td>
 						<td><%=vo.getRegDate()%></td>
+
+						<%
+							if (authUser != null && vo.getUserNo() == authUser.getNo()) {
+						%>
 						<td><a
 							href="<%=request.getContextPath()%>/board?a=list&no=<%=vo.getNo()%>"
 							class="del">Delete</a></td>
+						<%
+							} else {
+						%>
+						<td>  </td>
+						<%
+							}
+						%>
 					</tr>
 					<%
 						}
@@ -63,14 +73,15 @@
 					%>
 				</table>
 				<div class="bottom">
-				<% 
-				if(authUser!=null) { %>
-				<a href="<%=request.getContextPath()%>/board?a=writeform"
-				id="new-book">Write</a>
-				<%
-				}
-				%>
-					
+					<%
+						if (authUser != null) {
+					%>
+					<a href="<%=request.getContextPath()%>/board?a=writeform"
+						id="new-book">Write</a>
+					<%
+						}
+					%>
+
 				</div>
 			</div>
 		</div>
